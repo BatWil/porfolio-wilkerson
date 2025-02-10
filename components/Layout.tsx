@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 import ThemeToggle from "./ThemeToggle"
-import type React from "react" // Added import for React
+import type React from "react"
 
 interface LayoutProps {
   children: React.ReactNode
@@ -13,6 +14,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const [isDarkMode, setIsDarkMode] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const isDark = localStorage.getItem("darkMode") === "true"
@@ -31,7 +33,7 @@ export default function Layout({ children }: LayoutProps) {
       <Navbar />
       <AnimatePresence mode="wait">
         <motion.main
-          key={Math.random()} // This ensures the animation triggers on every page change
+          key={pathname} // Use the current pathname as the key
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}

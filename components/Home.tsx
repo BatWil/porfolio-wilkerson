@@ -13,14 +13,25 @@ export default function Home() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <motion.h1
+{/*         <motion.h1
           className="text-4xl sm:text-6xl font-bold text-center mb-6"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           Bienvenido a mi <span className="text-indigo-600 dark:text-indigo-400">Portafolio</span>
+        </motion.h1> */}
+
+
+        <motion.h1
+          className="text-4xl sm:text-6xl font-bold text-center mb-6"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          Tu próximo proyecto empieza <span className="text-indigo-600 dark:text-indigo-400">AQUÌ</span>
         </motion.h1>
+
 
         <motion.p
           className="text-xl text-center mb-8 max-w-2xl"

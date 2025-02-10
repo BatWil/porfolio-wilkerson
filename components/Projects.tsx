@@ -3,52 +3,23 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Layout from "./Layout"
+import { Code, Smartphone, Globe, Database, Github, ExternalLink } from "lucide-react" // Importando íconos de Lucide
 
 const projects = [
-  {
-    id: 1,
-    category: "web",
-    title: "E-commerce Platform",
-    description: "A full-stack e-commerce solution with React and Node.js",
-  },
-  {
-    id: 2,
-    category: "mobile",
-    title: "Task Management App",
-    description: "A mobile app for task management using React Native",
-  },
-  {
-    id: 3,
-    category: "web",
-    title: "Portfolio Website",
-    description: "A responsive portfolio website built with Next.js",
-  },
-  {
-    id: 4,
-    category: "web",
-    title: "Weather Dashboard",
-    description: "A weather dashboard using React and a weather API",
-  },
-  {
-    id: 5,
-    category: "mobile",
-    title: "Fitness Tracker",
-    description: "A mobile app for tracking workouts and nutrition",
-  },
-  {
-    id: 6,
-    category: "web",
-    title: "Blog Platform",
-    description: "A full-stack blog platform with user authentication",
-  },
+  { id: 1, category: "web", title: "Control de Asistencia y Rendimiento de Alumnos", description: "Una solución web para monitorear la asistencia y el rendimiento de los estudiantes en tiempo real.", technologies: ["React", "Next.js", "PostgeSQL", "Node.js"], icon: <Globe size={32} />, githubUrl: "https://github.com/BatWil/elexplorador-asistencia-master", liveUrl: "https://proyecto1.com" },
+  { id: 2, category: "mobile", title: "Aplicación de Gestión de Tareas", description: "Una aplicación móvil para la gestión eficiente de tareas diarias usando React Native.", technologies: ["React Native", "Ionic", "Firebase"], icon: <Smartphone size={32} />, githubUrl: "https://github.com/usuario/proyecto2", liveUrl: "https://proyecto2.com" },
+  { id: 3, category: "web", title: "Portafolio Web", description: "Un sitio web de portafolio responsivo construido con Next.js para mostrar proyectos y habilidades.", technologies: ["Next.js", "Tailwind CSS", "Vercel", "React"], icon: <Globe size={32} />, githubUrl: "https://github.com/usuario/proyecto3", liveUrl: "https://proyecto3.com" },
+  { id: 4, category: "web", title: "Control de Inventario y Venta", description: "Una aplicación web para gestionar el inventario y las ventas de productos en una tienda de ropa. Con actualización en tiempo real", technologies: ["Next.js", "Node.js", "PostgreSQL", "XML", "JSON", "Tailwind CSS"], icon: <Database size={32} />, githubUrl: "https://github.com/usuario/proyecto4", liveUrl: "https://proyecto4.com" },
+  { id: 5, category: "mobile", title: "Aplicación de ToDo", description: "Aplicación móvil para agendar recordatorios y gestionar tareas diarias de manera eficiente.", technologies: ["React Native", "Ionic", "PostgreSQL", "TypeScript", "CSS"], icon: <Smartphone size={32} />, githubUrl: "https://github.com/BatWil/todo", liveUrl: "https://proyecto5.com" },
+  { id: 6, category: "mobile", title: "Generador de Versículos Bíblicos", description: "Una app móvil que genera versículos bíblicos aleatorios, consumiendo datos de una API.", technologies: ["React Native", "Ionic", "API REST"], icon: <Smartphone size={32} />, githubUrl: "https://github.com/BatWil/biblica", liveUrl: "https://proyecto6.com" },
 ]
 
 export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState("all")
-  const [selectedProject, setSelectedProject] = useState(null)
+  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null)
 
-  const filteredProjects =
-    selectedCategory === "all" ? projects : projects.filter((project) => project.category === selectedCategory)
+  const filteredProjects = selectedCategory === "all" ? projects : projects.filter((p) => p.category === selectedCategory)
+  const selectedProject = selectedProjectId ? projects.find((p) => p.id === selectedProjectId) : null
 
   return (
     <Layout>
@@ -62,86 +33,69 @@ export default function Projects() {
           Mis Proyectos
         </motion.h1>
 
-        <div className="flex justify-center mb-8">
-          <motion.button
-            className={`mx-2 px-4 py-2 rounded-full ${selectedCategory === "all" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-800"}`}
-            onClick={() => setSelectedCategory("all")}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Todos
-          </motion.button>
-          <motion.button
-            className={`mx-2 px-4 py-2 rounded-full ${selectedCategory === "web" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-800"}`}
-            onClick={() => setSelectedCategory("web")}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Web
-          </motion.button>
-          <motion.button
-            className={`mx-2 px-4 py-2 rounded-full ${selectedCategory === "mobile" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-800"}`}
-            onClick={() => setSelectedCategory("mobile")}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Móvil
-          </motion.button>
+        {/* Lista de Proyectos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project) => (
+            <motion.div
+              key={project.id}
+              className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg cursor-pointer hover:shadow-xl transition duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setSelectedProjectId(project.id)}
+            >
+              <div className="flex items-center space-x-4">
+                <div className="text-primary">{project.icon}</div>
+                <h2 className="text-lg font-semibold">{project.title}</h2>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">{project.description}</p>
+            </motion.div>
+          ))}
         </div>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <AnimatePresence>
-            {filteredProjects.map((project) => (
+        {/* Modal de Detalles */}
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProjectId(null)}
+            >
               <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedProject(project)}
+                className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg max-w-md w-full"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.8 }}
+                onClick={(e) => e.stopPropagation()}
               >
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{project.description}</p>
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl font-bold">{selectedProject.title}</h2>
+                  <button className="text-gray-500 hover:text-gray-700 dark:hover:text-white" onClick={() => setSelectedProjectId(null)}>
+                    ✕
+                  </button>
+                </div>
+                <p className="mt-4 text-gray-700 dark:text-gray-300">{selectedProject.description}</p>
+                <h3 className="mt-4 font-semibold">Tecnologías:</h3>
+                <ul className="mt-2">
+                  {selectedProject.technologies.map((tech, index) => (
+                    <li key={index} className="text-gray-600 dark:text-gray-400">- {tech}</li>
+                  ))}
+                </ul>
+                <div className="mt-6 flex space-x-4">
+                  <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition">
+                    <Github className="mr-2" size={20} /> GitHub
+                  </a>
+                  <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
+                    <ExternalLink className="mr-2" size={20} /> Live
+                  </a>
                 </div>
               </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div
-              className="bg-white dark:bg-gray-800 p-8 rounded-lg max-w-2xl w-full"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-            >
-              <h2 className="text-2xl font-bold mb-4">{selectedProject.title}</h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">{selectedProject.description}</p>
-              <button className="bg-indigo-600 text-white px-4 py-2 rounded" onClick={() => setSelectedProject(null)}>
-                Cerrar
-              </button>
             </motion.div>
-          </motion.div>
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </Layout>
   )
 }
-

@@ -4,9 +4,17 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import Layout from "./Layout"
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6"
 
 export default function Contact() {
   const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: "",
+  })
+
+  const [status, setStatus] = useState("")
+  const [errors, setErrors] = useState({
     name: "",
     email: "",
     message: "",
@@ -19,10 +27,55 @@ export default function Contact() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    let valid = true
+    let errors = { name: "", email: "", message: "" }
+
+    if (!formState.name) {
+      errors.name = "El nombre es obligatorio."
+      valid = false
+    }
+
+    if (!formState.email) {
+      errors.email = "El email es obligatorio."
+      valid = false
+    } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
+      errors.email = "El email no es válido."
+      valid = false
+    }
+
+    if (!formState.message) {
+      errors.message = "El mensaje es obligatorio."
+      valid = false
+    }
+
+    setErrors(errors)
+    return valid
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Aquí iría la lógica para enviar el formulario
-    console.log(formState)
+
+    if (!validateForm()) {
+      return
+    }
+
+    setStatus("Enviando...")
+
+    const response = await fetch("https://formspree.io/f/meoelqgl", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formState),
+    })
+
+    if (response.ok) {
+      setStatus("Mensaje enviado!")
+      setFormState({ name: "", email: "", message: "" })
+    } else {
+      setStatus("Error al enviar el mensaje.")
+    }
   }
 
   return (
@@ -52,12 +105,14 @@ export default function Contact() {
                 type="text"
                 id="name"
                 name="name"
+                placeholder="Tu nombre"
                 required
                 value={formState.name}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full h-12 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 whileFocus={{ scale: 1.02 }}
               />
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -67,12 +122,14 @@ export default function Contact() {
                 type="email"
                 id="email"
                 name="email"
+                placeholder="tuemail@ejemplo.com"
                 required
                 value={formState.email}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full h-12 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 whileFocus={{ scale: 1.02 }}
               />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -82,12 +139,14 @@ export default function Contact() {
                 id="message"
                 name="message"
                 rows={4}
+                placeholder="Escribe tu mensaje aquí..."
                 required
                 value={formState.message}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full h-32 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 whileFocus={{ scale: 1.02 }}
               />
+              {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
             </div>
             <div>
               <motion.button
@@ -99,8 +158,9 @@ export default function Contact() {
                 Enviar mensaje
               </motion.button>
             </div>
+            {status && <p className="text-center mt-4">{status}</p>}
           </motion.form>
-
+          
           <motion.div
             className="mt-12 flex justify-center space-x-6"
             initial={{ opacity: 0 }}
@@ -108,7 +168,7 @@ export default function Contact() {
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             <motion.a
-              href="https://github.com"
+              href="https://github.com/BatWil"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.2 }}
@@ -117,7 +177,7 @@ export default function Contact() {
               <FaGithub className="h-8 w-8 text-gray-600 dark:text-gray-300" />
             </motion.a>
             <motion.a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/wilkerson-gomez/"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.2 }}
@@ -132,7 +192,7 @@ export default function Contact() {
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
             >
-              <FaTwitter className="h-8 w-8 text-gray-600 dark:text-gray-300" />
+              <FaXTwitter className="h-8 w-8 text-gray-600 dark:text-gray-300" />
             </motion.a>
           </motion.div>
         </div>
@@ -140,4 +200,3 @@ export default function Contact() {
     </Layout>
   )
 }
-
