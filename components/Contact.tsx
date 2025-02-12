@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import Layout from "./Layout"
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa"
+import { FaGithub, FaLinkedin, FaTwitter,FaEnvelope } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 
 export default function Contact() {
@@ -80,16 +80,54 @@ export default function Contact() {
 
   return (
     <Layout>
-      <div className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
         <motion.h1
-          className="text-4xl font-bold text-center mb-12"
+          className="text-4xl font-bold text-center mb-2"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Contacto
+          Contáctame
         </motion.h1>
-        <div className="max-w-3xl mx-auto">
+        
+        <hr className="border-t-2 border-gray-300 dark:border-gray-600 w-1/4 mx-auto mb-4" />
+
+        <motion.div
+          className="flex justify-center space-x-6 mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+        >
+          <motion.a
+            href="https://github.com/BatWil"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <FaGithub className="h-8 w-8 text-gray-600 dark:text-gray-300" />
+          </motion.a>
+          <motion.a
+            href="https://www.linkedin.com/in/wilkerson-gomez/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <FaLinkedin className="h-8 w-8 text-gray-600 dark:text-gray-300" />
+          </motion.a>
+          <motion.a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <FaXTwitter className="h-8 w-8 text-gray-600 dark:text-gray-300" />
+          </motion.a>
+        </motion.div>
+
+        <div className="max-w-3xl mx-auto mt-12">
           <motion.form
             onSubmit={handleSubmit}
             className="space-y-6 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg"
@@ -149,52 +187,18 @@ export default function Contact() {
               {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
             </div>
             <div>
-              <motion.button
+                <motion.button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600"
+                className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-              >
+                >
+                <FaEnvelope className="mr-2" />
                 Enviar mensaje
-              </motion.button>
+                </motion.button>
             </div>
             {status && <p className="text-center mt-4">{status}</p>}
           </motion.form>
-          
-          <motion.div
-            className="mt-12 flex justify-center space-x-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            <motion.a
-              href="https://github.com/BatWil"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaGithub className="h-8 w-8 text-gray-600 dark:text-gray-300" />
-            </motion.a>
-            <motion.a
-              href="https://www.linkedin.com/in/wilkerson-gomez/"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaLinkedin className="h-8 w-8 text-gray-600 dark:text-gray-300" />
-            </motion.a>
-            <motion.a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaXTwitter className="h-8 w-8 text-gray-600 dark:text-gray-300" />
-            </motion.a>
-          </motion.div>
         </div>
       </div>
     </Layout>
