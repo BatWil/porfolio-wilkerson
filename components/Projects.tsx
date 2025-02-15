@@ -21,45 +21,50 @@ const techIcons: { [key: string]: JSX.Element } = {
   Vercel: <SiVercel size={20} className="w-5 h-5 text-black dark:text-white" />,
 }
 const projects = [
-  { id: 1, 
-    category: "web", 
-    title: "Plataforma de Gestión de Asistencia y Desempeño Académico", 
-    description: "Monitoreo de asistencia y rendimiento con actualizacion en tiempo real", 
-    technologies: ["React", "Next.js", "PostgreSQL", "Node.js", "TypeScript", "Tailwind CSS", "Vercel"], 
-    icon: <MdOutlineWeb size={20} className="text-dark-600" />, 
-    github: "https://github.com/BatWil/elexplorador-asistencia-master", 
+  {
+    id: 1,
+    category: "web",
+    title: "Plataforma de Asistencia y Desempeño Académico",
+    description: "Plataforma que permite al maestro monitorear la asistencia y el rendimiento de los estudiantes.",
+    description2: "Esta aplicación es una solución integral diseñada para el entorno educativo, que permite a los docentes registrar y monitorear la asistencia de forma rápida y precisa, evaluar el rendimiento académico mediante paneles de control interactivos, y contar con actualización y sincronización en tiempo real para facilitar decisiones basadas en datos actualizados, además de integrar notificaciones push que alertan de incidencias o actualizaciones importantes, y generar reportes y estadísticas detalladas que ayudan a identificar tendencias, áreas de mejora y logros destacados.",
+    technologies: ["React", "Next.js", "PostgreSQL", "Node.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    icon: <MdOutlineWeb size={20} className="text-dark-600" />,
+    github: "https://github.com/BatWil/elexplorador-asistencia-master",
     demo: "https://elexplorador-asistencia-master-cqpw.vercel.app/",
-    details: "Este proyecto fue desarrollado para monitorear la asistencia y el rendimiento de los empleados en tiempo real. Se enfrentaron desafíos como la sincronización de datos en tiempo real y la implementación de notificaciones push." },
-
-  { id: 2, 
-    category: "web", 
-    title: "Portafolio Web", 
-    description: "Sitio web personal para mostrar mis proyectos y habilidades.", 
-    technologies: ["Next.js", "Tailwind CSS", "Vercel", "React"], 
-    icon: <MdOutlineWeb size={20} className="text-dark-600" />, 
-    github: "https://github.com/BatWil/porfolio-wilkerson", 
+  },
+  {
+    id: 2,
+    category: "web",
+    title: "Portafolio Web",
+    description: "Sitio web personal para mostrar mis proyectos y habilidades.",
+    description2: "Este portafolio web fue diseñado y desarrollado para mostrar mis habilidades y proyectos de desarrollo web y móvil, con un diseño minimalista y moderno, y una estructura clara y organizada que facilita la navegación y la visualización de la información, además de contar con un diseño responsivo que se adapta a diferentes dispositivos y tamaños de pantalla, y una paleta de colores y tipografía que reflejan mi estilo y personalidad.",
+    technologies: ["Next.js", "Tailwind CSS", "Vercel", "React"],
+    icon: <MdOutlineWeb size={20} className="text-dark-600" />,
+    github: "https://github.com/BatWil/porfolio-wilkerson",
     demo: "",
-    details: "Este portafolio fue creado para mostrar mis proyectos y habilidades. Utiliza Next.js para el renderizado del lado del servidor y Tailwind CSS para el diseño responsivo." },
-
-  { id: 3, 
-    category: "mobile", 
-    title: "ToDo App", 
-    description: "Gestión de tareas con recordatorios y almacenamiento local.", 
-    technologies: ["React", "Ionic", "PostgreSQL", "TypeScript"], 
-    icon: <SiAndroid size={20} className="text-dark-600" />, 
-    github: "https://github.com/BatWil/todo", 
+  },
+  {
+    id: 3,
+    category: "mobile",
+    title: "ToDo App",
+    description: "Gestión de tareas con recordatorios y almacenamiento local.",
+    description2: "Una aplicación móvil para la gestión de tareas que permite a los usuarios crear, editar y eliminar tareas, establecer recordatorios y almacenar datos localmente para acceso sin conexión.",
+    technologies: ["React", "Ionic", "TypeScript"],
+    icon: <SiAndroid size={20} className="text-dark-600" />,
+    github: "https://github.com/BatWil/todo",
     demo: "https://todo-wilgs-projects.vercel.app/",
-    details: "Esta aplicación de gestión de tareas permite a los usuarios crear, editar y eliminar tareas. Se implementaron recordatorios y almacenamiento local para mejorar la experiencia del usuario." },
-
-  { id: 4, 
-    category: "mobile", 
-    title: "Versículos Bíblicos", 
-    description: "Genera versículos aleatorios desde una API.", 
-    technologies: ["React", "Ionic", "JSON", "API REST"], 
-    icon: <SiAndroid size={20} className="text-dark-600" />, 
-    github: "https://github.com/BatWil/biblica", 
+  },
+  {
+    id: 4,
+    category: "mobile",
+    title: "Versículos Bíblicos",
+    description: "Genera versículos aleatorios desde una API.",
+    description2: "Una aplicación móvil que permite a los usuarios generar versículos bíblicos aleatorios desde una API. Esta app fue desarrollada para jóvenes que querían prepararse para un concurso donde tenían que buscar versículos bíblicos en base a una cita dada. La app permite seleccionar un límite de tiempo para encontrar la cita y seleccionar el número de rondas deseadas.",
+    technologies: ["React", "Ionic", "JSON", "API REST"],
+    icon: <SiAndroid size={20} className="text-dark-600" />,
+    github: "https://github.com/BatWil/biblica",
     demo: "https://biblica-iota.vercel.app/",
-    details: "Esta aplicación genera versículos bíblicos aleatorios utilizando una API REST. Se enfrentaron desafíos como la integración de la API y la gestión de estados en React." },
+  },
 ]
 
 export default function Projects() {
@@ -131,7 +136,7 @@ export default function Projects() {
           onClick={(e) => e.stopPropagation()}
               >
           <h2 className="text-xl font-bold">{projects.find((p) => p.id === selectedProject)?.title}</h2>
-          <p className="text-gray-700 dark:text-gray-300">{projects.find((p) => p.id === selectedProject)?.description}</p>
+          <p className="text-gray-700 dark:text-gray-300">{projects.find((p) => p.id === selectedProject)?.description2}</p>
 
           {/* Solución Implementada */}
           <div className="mt-4">
@@ -141,14 +146,6 @@ export default function Projects() {
                 <li key={index}>{tech}</li>
               ))}
             </ul>
-          </div>
-
-          {/* Más Información */}
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold">Más Información:</h3>
-            <p className="text-gray-700 dark:text-gray-300">
-              {projects.find((p) => p.id === selectedProject)?.details}
-            </p>
           </div>
 
           {/* Botones */}
@@ -178,4 +175,3 @@ export default function Projects() {
     </Layout>
   )
 }
-
